@@ -6,21 +6,18 @@ class Solution {
             return nums[0];
         }
         
-        int maxCount = 0;
+        int maxCount = 1;
         int majorityElm = nums[0];
-        for(int i: nums){
-            Integer c = map.get(i); 
+        
+        for(int currElm: nums){
+            Integer currElmCount = map.getOrDefault(currElm, 0)+1; 
             
-            if(c == null){
-                c = 0;    
-            }
-            c++;
-            if(maxCount < c){
-                maxCount = c;
-                majorityElm = i;
+            if(maxCount < currElmCount){
+                maxCount = currElmCount;
+                majorityElm = currElm;
             }
             
-            map.put(i, c);
+            map.put(currElm, currElmCount);
         }
         
         return majorityElm;
