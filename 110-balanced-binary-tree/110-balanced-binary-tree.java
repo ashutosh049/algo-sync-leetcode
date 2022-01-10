@@ -10,9 +10,14 @@ class Solution {
         }
         
         int heightLeftSt = getHeight(root.left);
-        int heightRightSt = getHeight(root.right);
+        // can be further improved by: before recursing right, check if left is already imbalanced.
+        int heightRightSt = heightLeftSt != -1 ? getHeight(root.right) : -1;
     
-        if(heightLeftSt == -1 || heightRightSt == -1 || Math.abs(heightLeftSt - heightRightSt) > 1){
+        // if(heightLeftSt == -1 || heightRightSt == -1 || Math.abs(heightLeftSt - heightRightSt) > 1){
+        //     return -1;
+        // }
+        
+        if(heightRightSt == -1 || Math.abs(heightLeftSt - heightRightSt) > 1){
             return -1;
         }
 
