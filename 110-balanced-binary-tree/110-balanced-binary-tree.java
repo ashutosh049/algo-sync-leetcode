@@ -12,13 +12,7 @@ class Solution {
         int heightLeftSt = getHeight(root.left);
         int heightRightSt = getHeight(root.right);
     
-        if(heightLeftSt == -1 || heightRightSt == -1){
-            return -1;
-        }
-        
-        int heightDiff = Math.abs(heightLeftSt - heightRightSt);
-        
-        if(heightDiff > 1){
+        if(heightLeftSt == -1 || heightRightSt == -1 || Math.abs(heightLeftSt - heightRightSt) > 1){
             return -1;
         }
 
