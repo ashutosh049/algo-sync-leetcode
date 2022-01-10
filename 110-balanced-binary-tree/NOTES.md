@@ -1,0 +1,6 @@
+[]
+[3,9,20,null,null,15,7]
+[1,2,2,3,3,null,null,4,4]
+[1,2,3,4,5,null,null,6,7]
+[1,2,null,3, 4,5,null,null,null,6]
+[1,2,null,3,null,4,null,5,null]
