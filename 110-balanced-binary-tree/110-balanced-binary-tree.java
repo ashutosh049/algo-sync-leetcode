@@ -1,19 +1,27 @@
 class Solution {
-     Boolean balanced = true;
     public boolean isBalanced(TreeNode root) {
-        dfs(root);
-        return balanced;
+        return getHeight(root) != -1;
     }
     
-    private int dfs(TreeNode node) {
-        if (!balanced || node == null) return 0;
+    private int getHeight(TreeNode root){
         
-        int left = dfs(node.left);
-        int right = dfs(node.right);
-        
-        if (Math.abs(left - right) > 1) {
-            balanced = false;
+        if(root == null){
+            return 0;
         }
-        return Math.max(left, right) + 1;
+        
+        int heightLeftSt = getHeight(root.left);
+        // can be further improved by: before recursing right, check if left is already imbalanced.
+        int heightRightSt = heightLeftSt != -1 ? getHeight(root.right) : -1;
+    
+        // if(heightLeftSt == -1 || heightRightSt == -1 || Math.abs(heightLeftSt - heightRightSt) > 1){
+        //     return -1;
+        // }
+        
+        if(heightRightSt == -1 || Math.abs(heightLeftSt - heightRightSt) > 1){
+            return -1;
+        }
+
+        return Math.max(heightLeftSt, heightRightSt) +1;
+                 
     }
 }
