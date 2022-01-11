@@ -1,20 +1,16 @@
-/**
- * Definition for a binary tree node.
- * public class TreeNode {
- *     int val;
- *     TreeNode left;
- *     TreeNode right;
- *     TreeNode() {}
- *     TreeNode(int val) { this.val = val; }
- *     TreeNode(int val, TreeNode left, TreeNode right) {
- *         this.val = val;
- *         this.left = left;
- *         this.right = right;
- *     }
- * }
- */
 class Solution {
+    List<String> res;
     public List<String> binaryTreePaths(TreeNode root) {
+       
+        //return binaryTreePaths_dfs_iterative(root);
+        
+        this.res=new ArrayList<String>();
+        binaryTreePaths_dfs_recursive(root, new StringBuilder());
+        return this.res;
+        
+    }
+    
+    public List<String> binaryTreePaths_dfs_iterative(TreeNode root) {
         
         List<String> out = new ArrayList<>();
         
@@ -61,5 +57,28 @@ class Solution {
             }
         }
         return out;
+    }
+    
+    public void binaryTreePaths_dfs_recursive(TreeNode root, StringBuilder pathBuilder) {
+        
+        if(root == null){
+            return;
+        }
+        
+        
+        if(pathBuilder.length() >= 1){
+            pathBuilder.append("->");
+        }
+        pathBuilder.append(root.val);
+        
+        
+        binaryTreePaths_dfs_recursive(root.left, new StringBuilder(pathBuilder.toString()));
+        binaryTreePaths_dfs_recursive(root.right, new StringBuilder(pathBuilder.toString()));
+        
+        if(root.left == null && root.right == null){
+            this.res.add(pathBuilder.toString());
+        }
+        
+        
     }
 }
