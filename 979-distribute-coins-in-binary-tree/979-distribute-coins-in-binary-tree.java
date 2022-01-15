@@ -1,6 +1,7 @@
 class Solution {
-    int totalMoves = 0;
+    int totalMoves;
     public int distributeCoins(TreeNode root) {
+        this.totalMoves = 0;
         getCtbn(root);
         return totalMoves;
     }
@@ -12,10 +13,8 @@ class Solution {
         int leftCtbn = getCtbn(root.left);
         int rightCtbn = getCtbn(root.right);
         
-        root.val += leftCtbn + rightCtbn;
-        
         totalMoves += Math.abs(leftCtbn) + Math.abs(rightCtbn);
         
-        return root.val -1;
+        return root.val + leftCtbn + rightCtbn -1;
     }
 }
