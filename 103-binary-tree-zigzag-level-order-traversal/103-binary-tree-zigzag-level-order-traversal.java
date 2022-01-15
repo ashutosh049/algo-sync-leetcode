@@ -1,7 +1,18 @@
 class Solution {
     public List<List<Integer>> zigzagLevelOrder(TreeNode root) {
         
-        return levelOrderIterative(root);
+        List<List<Integer>> levelOrder =  levelOrderIterative(root);
+        
+        // Reverse the alternate levels of nodes
+        if(levelOrder != null && levelOrder.size() >= 2){
+            for(int i=0; i< levelOrder.size(); i++){
+                if(i % 2 == 1){
+                    reverseList(levelOrder.get(i));
+                }
+            }            
+        }
+        
+        return levelOrder;
     }
     
     private List<List<Integer>> levelOrderIterative(final TreeNode root){
@@ -42,30 +53,18 @@ class Solution {
             
         }
         
-        //out
-        for(int i=0; i< out.size(); i++){
-            if(i % 2 == 1){
-                List<Integer> currList = out.get(i);
-                reverseList(currList);
-            }
-        }
-        
         return out;
     }
     
+    /**
+    * Recursive in-place reversal of a List
+    */
     private <T> void reverseList(List<T> list){
-        // base case: the list is empty, or only one element is left
         if (list == null || list.size() <= 1) {
             return;
         }
- 
-        // remove the first element
         T value = list.remove(0);
- 
-        // recur for remaining items
-        reverseList(list);
- 
-        // insert the top element back after recurse for remaining items
+        reverseList(list); 
         list.add(value);
     }
 }
