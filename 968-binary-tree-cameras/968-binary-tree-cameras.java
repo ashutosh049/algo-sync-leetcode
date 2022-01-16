@@ -2,37 +2,34 @@ class Solution {
     int count;
     public int minCameraCover(TreeNode root) {
         this.count =0;
-        if(dfs(root) == 0){
+        Boolean camReq = dfs(root);
+        if(camReq != null && camReq){
             this.count++;
         }
         return this.count;
     }
     
     /**
-    * 1: Cam Not Required
-    * 0: Cam Required
-    * 2: Has Cam & Not Required
+    * 1: Cam Not Required: null
+    * 0: Cam Required: true
+    * 2: Has Cam & Not Required: false
     */
-    private int dfs(TreeNode root) {
+    private Boolean dfs(TreeNode root) {
         if(root == null){
-            return 1;//NR
+            return null;
         }
-        
-        // if(isLeaf(root)){
-        //     return true;
-        // }
-        
-        int leftCamReq = dfs(root.left);
-        int rightCamReq = dfs(root.right);
+                
+        Boolean leftCamReq = dfs(root.left);
+        Boolean rightCamReq = dfs(root.right);
     
         
-        if(leftCamReq == 0 || rightCamReq == 0){
+        if((leftCamReq!= null && leftCamReq) || (rightCamReq != null && rightCamReq)){
             count++;
-            return 2;                
-        }else if(leftCamReq == 2 || rightCamReq == 2){
-            return 1; 
+            return false;                
+        }else if((leftCamReq!= null && !leftCamReq) || (rightCamReq != null && !rightCamReq)){
+            return null; 
         }else{
-            return 0;
+            return true;
         }
         
     }
