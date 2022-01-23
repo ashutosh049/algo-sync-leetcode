@@ -4,12 +4,25 @@ class Solution {
         int count = 0;
         
         for(int i=0; i< nums.length; i++){
+
+            // Using sring.value of method
+            //String n = String.valueOf(nums[i]);
+            // if(n.length() % 2 == 0){
+            //     count++;
+            // }
             
-            String n = String.valueOf(nums[i]);
+            // If strign conversion is not allowed
+            int c = 0;
+            int n = nums[i];
+            while(n > 0){
+                n = n/10;
+                c++;
+            }
             
-            if(n.length() % 2 == 0){
+            if(c %2 ==0){
                 count++;
             }
+            
        }
     
         return count;
