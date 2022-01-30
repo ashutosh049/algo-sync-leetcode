@@ -3,7 +3,7 @@ class Solution {
      
         int count = 0;
         List<Integer>[] adjList = new ArrayList[n];
-        Set<Integer> visited = new HashSet<>();
+        int[] visited = new int[n];
         
         for(int i=0; i< n; i++){
             adjList[i] = new ArrayList<>();
@@ -16,7 +16,7 @@ class Solution {
         
         
         for(int i=0; i< n; i++){
-            if(!visited.contains(i)){
+            if(visited[i] == 0){
                 count++;
                 dfs(i, adjList, visited);
             }
@@ -25,19 +25,20 @@ class Solution {
         return count;
     }
     
-    private void dfs(int i, List<Integer>[] adjList, Set<Integer> visited){
+    private void dfs(int i, List<Integer>[] adjList, int[] visited){
         Stack<Integer> stack = new Stack();
         stack.push(i);
-        visited.add(i);
+        //visited.add(i);
+        visited[i] = 1;
 
         while(!stack.isEmpty()){
             int curr = stack.pop();
             for(int neighbour: adjList[curr]){
-                if(visited.contains(neighbour)){
+                if(visited[neighbour] == 1){
                     continue;
                 }
                 stack.push(neighbour);
-                visited.add(neighbour);
+                 visited[neighbour] = 1;
             }            
         }
 
