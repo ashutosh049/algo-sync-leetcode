@@ -23,10 +23,13 @@ class Solution {
         return pairSet.size();
     }
     
+    /**
+    * TC: 
+    */
     private boolean valid(int op1, int op2, int k, Set<Integer> pairSet){
         
         if(Math.abs(op1 - op2) == k){
-            return !pairSet.add(op1 + op2);
+            return !pairSet.contains(op1 + op2);
         }
         return false;
         
