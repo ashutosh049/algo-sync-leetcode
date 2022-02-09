@@ -28,10 +28,11 @@ class Solution {
     */
     private boolean valid(int op1, int op2, int k, Set<Integer> pairSet){
         
-        if(Math.abs(op1 - op2) == k){
-            return !pairSet.contains(op1 + op2);
-        }
-        return false;
+        // if(Math.abs(op1 - op2) == k){
+        //     return !pairSet.contains(op1 + op2);
+        // }
+        // return false;
+        return Math.abs(op1 - op2) == k;
         
     }
     
