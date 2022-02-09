@@ -1,36 +1,34 @@
 class Solution {
     public int findPairs(int[] nums, int k) {
 
-        Arrays.sort(nums);
+        Map<Integer, Integer> freqMap = new HashMap<>();
         
-        int len = nums.length;
-        
-        if(len ==1)
-            return 0;
-        
-        int uniquePairCount = 0;
-        
-        
-        for(int i=0; i<len; i++){
-            
-            if(i  > 0 && nums[i] == nums[i-1]){
-                continue;
-            }
-            
-            for(int j=i+1; j<len; j++){
-                
-                if(j  > i+1 && nums[j] == nums[j-1]){
-                    continue;
-                }
-                
-                if(Math.abs(nums[i]-nums[j]) == k){
-                    uniquePairCount++;
-                }
-            }
-            
+        for(int i: nums){
+            freqMap.put(i, freqMap.getOrDefault(i, 0)+1);
         }
         
-        return uniquePairCount;
+        int count = 0;
+        
+        if(k==0){
+            for(Map.Entry<Integer,Integer> entry : freqMap.entrySet()){
+                int key = entry.getKey();
+                int value = entry.getValue();
+                if(value > 1){
+                    count++;
+                }
+            }    
+        }else {
+            for(Map.Entry<Integer,Integer> entry : freqMap.entrySet()){
+                int key = entry.getKey();
+                int value = entry.getValue();
+                if(freqMap.containsKey(key+k)){
+                    count++;
+                }
+            }
+        }
+        
+        return count;
+
 
     }
     
