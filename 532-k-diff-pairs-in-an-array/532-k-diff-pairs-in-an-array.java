@@ -1,7 +1,7 @@
 class Solution {
     public int findPairs(int[] nums, int k) {
     
-    Set<Integer> pairMap = new HashSet<>();
+        Set<Integer> pairSet = new HashSet<>();
         
         int len = nums.length;
         
@@ -14,20 +14,19 @@ class Solution {
             
             for(int j=i+1; j<len; j++){
                 int operand2 = nums[j];
-                if(valid(operand1, operand2, k, pairMap)){
-                    //pairMap.add(Math.abs(operand1 + operand2));
-                    pairMap.add(operand1 + operand2);
+                if(valid(operand1, operand2, k, pairSet)){
+                    pairSet.add(operand1 + operand2);
                 }
             }
             
         }
-        return pairMap.size();
+        return pairSet.size();
     }
     
-    private boolean valid(int op1, int op2, int k, Set<Integer> pairMap){
+    private boolean valid(int op1, int op2, int k, Set<Integer> pairSet){
         
         if(Math.abs(op1 - op2) == k){
-            return !pairMap.add(op1 + op2);
+            return !pairSet.add(op1 + op2);
         }
         return false;
         
