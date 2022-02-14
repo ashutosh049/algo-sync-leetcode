@@ -6,10 +6,10 @@ class Solution {
         }
         
         Arrays.sort(nums);
+        int maxElement = nums[nums.length-1];
         
-        int[] freq = new int[10001];
-        //int totalPoints = 0;
-        int[] maxVal = new int[10001];
+        int[] freq = new int[maxElement+1];
+        int[] maxVal = new int[maxElement+1];
         
         for(int i: nums){
             freq[i]++;
@@ -20,15 +20,13 @@ class Solution {
         
         for(int i=2; i < freq.length; i++){
             
-           // if(freq[i] > 0){
-                int prevMax = maxVal[i-1];
-                int currMax = maxVal[i-2]+ (freq[i] * i);
-                int totalPoints = Math.max(prevMax, currMax); 
-                maxVal[i] = totalPoints; 
-            //}
+            int prevMax = maxVal[i-1];
+            int currMax = maxVal[i-2]+ (freq[i] * i);
+            int totalPoints = Math.max(prevMax, currMax); 
+            maxVal[i] = totalPoints; 
             
         }
-        return maxVal[10000];
+        return maxVal[maxElement];
     }
         
 }
