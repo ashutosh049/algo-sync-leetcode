@@ -1,32 +1,47 @@
 class Solution {
+    int[] nums;
+    int[] memo;
+    int[] numsFreq;
     public int deleteAndEarn(int[] nums) {
+        this.nums = nums;
+        int n = nums.length;
         
-        if(nums.length == 1){
+        if(n ==1){
             return nums[0];
         }
-        
         Arrays.sort(nums);
-        int maxElement = nums[nums.length-1];
+        int maxVal = nums[n-1];
+        numsFreq = new int[maxVal+1];
+        memo = new int[maxVal+1];
         
-        int[] freq = new int[maxElement+1];
-        int[] maxVal = new int[maxElement+1];
+        Arrays.fill(memo, -1);
+        memo[0] = 0;
+        memo[1] = 1;
         
-        for(int i: nums){
-            freq[i]++;
+        
+        for(int i=0; i<n; i++){
+            int val = nums[i];
+            numsFreq[val]++;
         }
         
-        maxVal[0] = 0;
-        maxVal[1] = freq[1] * 1;
+        return recur(nums[n-1], 0);
         
-        for(int i=2; i < freq.length; i++){
-            
-            int prevMax = maxVal[i-1];
-            int currMax = maxVal[i-2]+ (freq[i] * i);
-            int totalPoints = Math.max(prevMax, currMax); 
-            maxVal[i] = totalPoints; 
-            
-        }
-        return maxVal[maxElement];
     }
+    
+    private int recur(int n, int max){
         
+        if(n == 0){
+            return n * numsFreq[0];
+        }if(n==1){
+            return n * numsFreq[1];
+        }if(memo[n] != -1){
+            return memo[n];
+        }
+        
+       memo[n] = Math.max(recur(n-2, max)+(n * numsFreq[n]), recur(n-1, max));
+        
+        return memo[n];
+        
+    }
+    
 }
