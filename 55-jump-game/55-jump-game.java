@@ -1,7 +1,7 @@
 class Solution {
     int[] nums;
     int n;
-    Integer[] memo;
+    Boolean[] memo;
     public boolean canJump(int[] nums) {
         
         this.nums = nums;
@@ -14,13 +14,14 @@ class Solution {
         if(nums[0] ==0)
             return false;
         
-        this.memo = new Integer[n];
+        this.memo = new Boolean[n];
         
         return dp(0);
         
     }
     
     private boolean dp(int i){
+        
         if( i == n-1){
             return true;
         }
@@ -38,14 +39,10 @@ class Solution {
                 }
             }
             
-            if(recheable){
-                memo[i] = 1;    
-            }else{
-                memo[i] = 0;
-            }
+            memo[i] = recheable;    
             
         }
-        return memo[i] == 0 ? false : true;
+        return memo[i];
         
     }
 }
