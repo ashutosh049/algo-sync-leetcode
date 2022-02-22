@@ -32,7 +32,7 @@ class Solution {
         
         if(memo[i] == null){
             boolean recheable = false;
-            for(int k = 1; k <= nums[i]; k++){
+            for(int k = 1; k <= nums[i] && k<= n-1; k++){
                 if(dp(i+k)){
                     recheable = true;
                     break;
