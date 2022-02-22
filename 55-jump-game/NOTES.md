@@ -27,3 +27,8 @@ if(n == 1){
 return true;
 }
 if(nums[0] ==0)
+return false;
+this.memo = new Boolean[n];
+return dp(0);
+}
+private boolean dp(int i){
