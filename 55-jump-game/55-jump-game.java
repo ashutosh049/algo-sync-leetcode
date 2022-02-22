@@ -1,46 +1,12 @@
 class Solution {
-    int[] nums;
-    int n;
-    Boolean[] memo;
     public boolean canJump(int[] nums) {
+      int reach=0;
         
-        if(nums.length == 1){
-            return true;
-        }
-        
-        if(nums[0] == 0){
-            return false;
-        }
-        
-        this.nums=  nums;
-        this.n = nums.length;
-        this.memo = new Boolean[n];
-        
-        return dp(0);        
-    }
-    
-    
-    boolean dp(int i){
-        
-        if(i == n-1){
-            return true;
-        }
-        
-        if(memo[i] == null){
-            boolean reachable = false;
+        for(int i=0;i<=reach;i++){
+            reach = Math.max(reach,i+nums[i]);
             
-            for(int k=1; k < n && k <= nums[i]; k++){
-                if(dp(i+k)){
-                    reachable = true;
-                    break;
-                }
-            }   
-            
-            memo[i] = reachable;
+            if(reach>=nums.length-1) return true;
         }
-        
-        
-        return memo[i];
-        
+        return false;
     }
 }
