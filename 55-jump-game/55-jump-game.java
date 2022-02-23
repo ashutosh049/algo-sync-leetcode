@@ -1,33 +1,36 @@
-enum Index {
-    GOOD, BAD, UNKNOWN
-}
-
-public class Solution {
-    Index[] memo;
-
-    public boolean canJumpFromPosition(int position, int[] nums) {
-        if (memo[position] != Index.UNKNOWN) {
-            return memo[position] == Index.GOOD ? true : false;
-        }
-
-        int furthestJump = Math.min(position + nums[position], nums.length - 1);
-        for (int nextPosition = position + 1; nextPosition <= furthestJump; nextPosition++) {
-            if (canJumpFromPosition(nextPosition, nums)) {
-                memo[position] = Index.GOOD;
-                return true;
-            }
-        }
-
-        memo[position] = Index.BAD;
-        return false;
-    }
-
+class Solution {
+    int[] nums;
+    int n;
     public boolean canJump(int[] nums) {
-        memo = new Index[nums.length];
-        for (int i = 0; i < memo.length; i++) {
-            memo[i] = Index.UNKNOWN;
+        
+        if(nums.length == 1){
+            return true;
         }
-        memo[memo.length - 1] = Index.GOOD;
-        return canJumpFromPosition(0, nums);
+        
+        this.nums = nums;
+        this.n = nums.length;
+        
+        if(nums[0] == 0){
+            return false;
+        }
+
+        //boolean reachable = false;
+        int i=1;
+
+        while(i < n-1){
+            int prev = nums[i-1];
+            int curr = nums[i];
+            if(prev -1 > curr){
+                nums[i] = prev -1;
+            }
+            if(nums[i] ==0){
+                break;
+            }
+            i++;
+        }
+
+        return i == n-1;
+        
     }
+    
 }
