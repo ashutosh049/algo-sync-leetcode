@@ -1,16 +1,24 @@
 class Solution {
+​
 public int maxProduct(int[] nums) {
 int n = nums.length;
-int globalMax = nums[0];
-int min_sofar = nums[0];
-int max_sofar = nums[0];
-for(int i=1; i< n; i++){
-int curElm = nums[i];
-int tempMax = Math.max(curElm, Math.max(min_sofar*curElm, max_sofar*curElm));
-min_sofar = Math.min(curElm, Math.min(min_sofar*curElm, max_sofar*curElm));
-max_sofar = tempMax;
-globalMax = Math.max(max_sofar, globalMax);
+int maxProduct = nums[0];
+int prevMin = nums[0];
+int prevMax = nums[0];
+​
+for (int i = 1; i < n; i++) {
+int currMax = Math.max(nums[i], Math.max(prevMin * nums[i], prevMax * nums[i]));
+int currMin = Math.min(nums[i], Math.min(prevMin * nums[i], prevMax * nums[i]));
+​
+prevMin = currMin;
+prevMax = currMax;
+​
+maxProduct = Math.max(prevMax, maxProduct);
 }
-return globalMax;
+return maxProduct;
 }
 }
+​
+​
+##### Approach 2
+​
