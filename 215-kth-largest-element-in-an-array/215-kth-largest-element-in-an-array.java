@@ -5,30 +5,30 @@ class Solution {
 
     public int findKthLargest(int[] nums, int k) {
         int n = nums.length;
+        int size = k;
 
         if (n == 1) {
             return nums[0];
         }
 
-        //Comparator<Integer> comp = (a, b) ->  b.compareTo(a);
-        //PriorityQueue<Integer> queue = new PriorityQueue<>(comp);
+        // Max heap
+        PriorityQueue<Integer> queue = new PriorityQueue<>(size);
 
-        // OR
+        int i = 0;
 
-        PriorityQueue<Integer> queue = new PriorityQueue<>((a, b) -> b.compareTo(a));
-
-        for (int num : nums) {
-            queue.offer(num);
+        // Insert first k elements to make sure heap has at most k elements
+        for (; i < size; i++) {
+            queue.offer(nums[i]);
         }
 
-        int i = 1;
-        int out = queue.poll();
-
-        while (i < k) {
-            out = queue.poll();
-            i++;
+        // for rest of the elements in nums, we need to first poll anf then offer
+        for (; i < n; i++) {
+            if (queue.peek() < nums[i]) {
+                queue.poll();
+                queue.offer(nums[i]);
+            }
         }
 
-        return out;
+        return queue.poll();
     }
 }
