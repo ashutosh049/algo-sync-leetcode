@@ -1,33 +1,3 @@
-while (i < (n - k)) {
-kThLargest = queue.poll();
-i++;
-}
-​
-return kThLargest;
-}
-}
-​
-```
-​
----
-#### Approach 2 : Using Max Heap(poll for k times)
-​
-1. Create PQ maxheap (with reverse order comparator)
-2. Add all elements to maxheap
-3. Poll for k times
-4. return Kth polled element
-​
-|Status|Runtime|Memory|Language|
-| ---------- |----------|----------|
-|Accepted|  7 to 14  ms|  44.8 MB|  java|
-​
-​
-```java
-​
-import java.util.Arrays;
-import java.util.Collections;
-​
-class Solution {
 ​
 public int findKthLargest(int[] nums, int k) {
 int n = nums.length;
@@ -47,3 +17,46 @@ for (int num : nums) {
 queue.offer(num);
 }
 ​
+int i = 1;
+int out = queue.poll();
+​
+while (i < k) {
+out = queue.poll();
+i++;
+}
+​
+return out;
+}
+}
+​
+​
+```
+​
+#### Approach 3: Minheap of size `k`
+​
+|Status|Runtime|Memory|Language|
+| ---------- |----------|----------|
+|Accepted|  2  ms|  42 MB|  java|
+​
+​
+```java
+import java.util.Arrays;
+import java.util.Collections;
+​
+class Solution {
+​
+public int findKthLargest(int[] nums, int k) {
+int n = nums.length;
+int size = k;
+​
+if (n == 1) {
+return nums[0];
+}
+​
+// Max heap
+PriorityQueue<Integer> queue = new PriorityQueue<>(size);
+​
+int i = 0;
+​
+// Insert first k elements to make sure heap has at most k elements
+for (; i < size; i++) {
