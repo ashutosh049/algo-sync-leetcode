@@ -20,10 +20,10 @@ class Solution {
             anagramsKeyMap.put(anagramKey, anagrams);
         }
 
-        for (Map.Entry<String, List<String>> entry : anagramsKeyMap.entrySet()) {
-            res.add(entry.getValue());
-        }
+        // for (Map.Entry<String, List<String>> entry : anagramsKeyMap.entrySet()) {
+        //     res.add(entry.getValue());
+        // }
 
-        return res;
+        return anagramsKeyMap.values().stream().collect(Collectors.toList());
     }
 }
