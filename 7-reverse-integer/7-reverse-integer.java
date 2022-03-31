@@ -1,33 +1,28 @@
 class Solution {
-    public int reverse(int x) {
+    public int reverse(int num) {
         
-        long reversed = 0;
-        int mul = 10;
-        boolean isNegetive = false;
+        int rev = 0;
         
-        if(x == 0){
-            return 0;
-        }else if(x < 0){
-            isNegetive = true;
-        }
+        int max = Integer.MAX_VALUE;
+        int min = Integer.MIN_VALUE;
         
-        x = Math.abs(x);
-        
-        while(x >= 1){
+        while(num != 0){
+            int pop = num % 10;
             
-            reversed = reversed * 10;
-            
-            if(reversed > Integer.MAX_VALUE || reversed < Integer.MIN_VALUE){
+            if(rev > max/10 || (rev == max/10 && pop > 7)){
                 return 0;
             }
             
-            reversed += x % 10;
-            x = x /10;
+            if(rev < min/10 || (rev == min/10 && pop < -8)){
+                return 0;
+            }
+            
+            rev *= 10;
+            rev += pop;
+            
+            num /= 10;
         }
         
-        if(isNegetive){
-         return (int)(0 - reversed);    
-        }
-        return (int)reversed;
+        return rev;
     }
 }
