@@ -12,7 +12,7 @@ class Solution {
         boolean isPalidrome = true;
         int i = 0;
 
-        while (i <= len / 2) {
+        while (i < len / 2) {
             if (str.charAt(i) == str.charAt(len - 1 - i)) {
                 i++;
             } else {
