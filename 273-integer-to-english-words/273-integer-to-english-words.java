@@ -1,5 +1,5 @@
 class Solution {
-    final String[] LESS_THAN_20 = {
+    private static final String[] LESSTHAN20 = {
         "",
         "One",
         "Two",
@@ -21,25 +21,47 @@ class Solution {
         "Eighteen",
         "Nineteen"
     };
-    final String[] TENS = { "", "Ten", "Twenty", "Thirty", "Forty", "Fifty", "Sixty", "Seventy", "Eighty", "Ninety" };
-    final String[] THOUSANDS = { "Billion", "Million", "Thousand", "" };
-    final int[] radix = { 1000000000, 1000000, 1000, 1 };
+    private static final String[] TENS = { "", " Ten", "Twenty", "Thirty", "Forty", "Fifty", "Sixty", "Seventy", "Eighty", "Ninety" };
+    private static final String SPACE = " ";
 
     public String numberToWords(int num) {
-        if (num == 0) return "Zero";
-        StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < radix.length; i++) {
-            if (num / radix[i] == 0) continue;
-            sb.append(trans(num / radix[i])).append(THOUSANDS[i]).append(' ');
-            num %= radix[i];
+        if (num == 0) {
+            return "Zero";
         }
-        return sb.toString().trim();
+        return helper(num);
     }
 
-    private String trans(int num) {
-        if (num == 0) return "";
-        if (num < 20) return LESS_THAN_20[num] + " ";
-        if (num < 100) return TENS[num / 10] + " " + trans(num % 10);
-        return LESS_THAN_20[num / 100] + " Hundred " + trans(num % 100);
+    private String helper(int num) {
+        StringBuilder sb = new StringBuilder();
+        if (num < 20) {
+            sb.append(LESSTHAN20[num]);
+        } else if (num < 100) {
+            sb.append(TENS[num / 10]);
+            if (num % 10 != 0) {
+                sb.append(SPACE).append(helper(num % 10));
+            }
+        } else if (num < 1000) {
+            sb.append(helper(num / 100)).append(" Hundred");
+            if (num % 100 != 0) {
+                sb.append(SPACE).append(helper(num % 100));
+            }
+        } else if (num < 1000000) {
+            sb.append(helper(num / 1000)).append(" Thousand");
+            if (num % 1000 != 0) {
+                sb.append(SPACE).append(helper(num % 1000));
+            }
+        } else if (num < 1000000000) {
+            sb.append(helper(num / 1000000)).append(" Million");
+            if (num % 1000000 != 0) {
+                sb.append(SPACE).append(helper(num % 1000000));
+            }
+        } else {
+            sb.append(helper(num / 1000000000)).append(" Billion");
+            if (num % 1000000000 != 0) {
+                sb.append(SPACE).append(helper(num % 1000000000));
+            }
+        }
+
+        return sb.toString();
     }
 }
