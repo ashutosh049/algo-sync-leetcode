@@ -1,28 +1,29 @@
+import java.util.Arrays;
+import java.util.Collections;
+
+//Min Heap of size N
 class Solution {
+
     public int findKthLargest(int[] nums, int k) {
-        
-        int len = nums.length;
-        
-        if(len == 1){
+        int n = nums.length;
+
+        if (n == 1) {
             return nums[0];
         }
         
-        Comparator<Integer> comp = (a,b) -> b.compareTo(a);
-        PriorityQueue<Integer> maxHeap = new PriorityQueue<>(comp);
+        PriorityQueue<Integer> minHeap = new PriorityQueue();
         
         for(int num: nums){
-            maxHeap.offer(num);
+            minHeap.offer(num);
         }
-        
-        // we need to poll for k-1 times
-        // return the next polled element
-        int i = 1;
-        
-        while(i++ < k){
-            maxHeap.poll();
+
+        int i = 0;
+        int kThLargest = minHeap.poll();
+
+        while (i++ < (n - k)) {
+            kThLargest = minHeap.poll();
         }
-        
-        return  maxHeap.poll();
-        
+
+        return kThLargest;
     }
 }
