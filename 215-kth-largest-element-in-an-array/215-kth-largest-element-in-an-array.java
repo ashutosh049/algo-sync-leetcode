@@ -1,34 +1,28 @@
-import java.util.Arrays;
-import java.util.Collections;
-
 class Solution {
-
     public int findKthLargest(int[] nums, int k) {
-        int n = nums.length;
-        int size = k;
-
-        if (n == 1) {
+        
+        int len = nums.length;
+        
+        if(len == 1){
             return nums[0];
         }
-
-        // Max heap
-        PriorityQueue<Integer> queue = new PriorityQueue<>(size);
-
-        int i = 0;
-
-        // Insert first k elements to make sure heap has at most k elements
-        for (; i < size; i++) {
-            queue.offer(nums[i]);
+        
+        Comparator<Integer> comp = (a,b) -> b.compareTo(a);
+        PriorityQueue<Integer> maxHeap = new PriorityQueue<>(comp);
+        
+        for(int num: nums){
+            maxHeap.offer(num);
         }
-
-        // for rest of the elements in nums, we need to first poll anf then offer
-        for (; i < n; i++) {
-            if (queue.peek() < nums[i]) {
-                queue.poll();
-                queue.offer(nums[i]);
-            }
+        
+        // we need to poll for k-1 times
+        // return the next polled element
+        int i = 1;
+        
+        while(i++ < k){
+            maxHeap.poll();
         }
-
-        return queue.poll();
+        
+        return  maxHeap.poll();
+        
     }
 }
