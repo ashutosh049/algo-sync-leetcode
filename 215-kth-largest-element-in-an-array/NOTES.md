@@ -1,42 +1,26 @@
-import java.util.Collections;
+#### Approach 0: Using `sorting`
 ​
+```java
 class Solution {
-​
 public int findKthLargest(int[] nums, int k) {
-int n = nums.length;
-​
-if (n == 1) {
-return nums[0];
-}
-​
-//Comparator<Integer> comp = (a, b) ->  b.compareTo(a);
-//PriorityQueue<Integer> queue = new PriorityQueue<>(comp);
-​
-// OR
-​
-PriorityQueue<Integer> queue = new PriorityQueue<>((a, b) -> b.compareTo(a));
-​
-for (int num : nums) {
-queue.offer(num);
-}
-​
-int i = 1;
-int out = queue.poll();
-​
-while (i < k) {
-out = queue.poll();
-i++;
-}
-​
-return out;
+Arrays.sort(nums);
+return nums[nums.length-k];
 }
 }
-​
-​
 ```
 ​
-#### Approach 3: Minheap of size `k`
+TC: `O(NlogN)`
+SC: `O(1)`
+​
+#### Approach 1: Using `MinHeap`
+​
+1. Create PQ minheap with heapify method
+2. Poll for n-k times
+3.  return n-k th polled element
 ​
 |Status|Runtime|Memory|Language|
 | ---------- |----------|----------|
-|Accepted|  2  ms|  42 MB|  java|
+|Accepted|  11 ms|  45.7 MB|  java|
+​
+​
+##### Code
