@@ -22,16 +22,10 @@ dq2.offerFirst(curr2);
 curr2 = curr2.next;
 }
 ​
-while (!dq1.isEmpty() && !dq2.isEmpty()) {
-ListNode peeked1 = dq1.peek();
-ListNode peeked2 = dq2.peek();
-if (peeked1 == peeked2) {
+while (!dq1.isEmpty() && !dq2.isEmpty() && dq1.peek() == dq2.peek()) {
 intersectionNode = dq1.peek();
 dq1.poll();
 dq2.poll();
-} else {
-break;
-}
 }
 ​
 return intersectionNode;
