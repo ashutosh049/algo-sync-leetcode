@@ -1,4 +1,4 @@
-#### Approach 1: Iterative
+#### Approach 1: Iterative using sentinel node
 ​
 ```java
 public ListNode mergeTwoLists(ListNode l1, ListNode l2) {
@@ -24,6 +24,3 @@ curr.next = l2;
 curr.next = l1;
 }
 ​
-return sentinel.next;
-}
-```
