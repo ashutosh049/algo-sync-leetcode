@@ -7,21 +7,16 @@ class Solution {
         this.nums = nums;
         this.len = nums.length;
         this.memoArr = new Integer[this.len];
-        
-        if(this.len == 1){
+
+        if (this.len == 1) {
             return nums[0];
-        }else if(this.len == 2){
+        } else if (this.len == 2) {
             return Math.max(nums[1], nums[0]);
-        }else{
+        } else {
             memoArr[0] = nums[0];
             memoArr[1] = Math.max(nums[1], nums[0]);
-
-            if(len >= 2)
-                return func(len - 1);
-
-            return memoArr[len-1];            
+            return func(len - 1);
         }
-
     }
 
     Integer func(int i) {
