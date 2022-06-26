@@ -2,7 +2,8 @@ class Solution {
 
     public int[] twoSum(int[] nums, int target) {
         //return naive(nums, target);
-        return usingMap(nums, target);
+        //return usingMap(nums, target);
+        return usingMapSinglePass(nums, target);
     }
 
     private int[] naive(int[] nums, int target) {
@@ -31,7 +32,7 @@ class Solution {
         return sol;
     }
 
-    // Approach: Map.. target: O(n)
+    // Approach: Map.. target: O(n), SC: O(n)
 
     private int[] usingMap(int[] nums, int target) {
         Map<Integer, Integer> map = new HashMap<>();
@@ -52,10 +53,39 @@ class Solution {
         }
 
         for (int i = 0; i < len; i++) {
-            if (map.containsKey(target - nums[i]) && i != map.get(target-nums[i])){
+            if (map.containsKey(target - nums[i]) && i != map.get(target - nums[i])) {
                 sol[0] = i;
                 sol[1] = map.get(target - nums[i]);
                 break;
+            }
+        }
+        return sol;
+    }
+
+    // Approach 3: 1 pass hash map.. target: O(n), SC: O(n)
+
+    private int[] usingMapSinglePass(int[] nums, int target) {
+        Map<Integer, Integer> map = new HashMap<>();
+
+        int[] sol = new int[2];
+        int len = nums.length;
+
+        if (len == 2) {
+            // we can directl assign values, as length is only 2
+            sol[0] = 0;
+            sol[1] = 1;
+            return sol;
+        }
+
+        // check and add to map
+        for (int i = 0; i < len; i++) {
+            if (map.containsKey(target - nums[i])) {
+                // got a pair
+                sol[0] = i;
+                sol[1] = map.get(target - nums[i]);
+                break;
+            } else {
+                map.put(nums[i], i);
             }
         }
         return sol;
